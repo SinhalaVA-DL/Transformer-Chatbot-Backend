@@ -1,4 +1,4 @@
-from fastapi import Depends, FastAPI
+from fastapi import  FastAPI
 from pydantic import BaseModel
 from .routers import chat
 

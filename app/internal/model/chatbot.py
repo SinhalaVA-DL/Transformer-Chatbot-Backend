@@ -3,10 +3,17 @@ import re
 from .Predictor import *
 from .Sinhala_tokenizer import *
 from .Transformer import CustomSchedule, transformer, loss_function
+from pathlib import Path
 
+
+BASE_DIR = Path(__file__).resolve(strict=True).parent
+
+
+tokenizer_file = open(f"{BASE_DIR}/tokenizer.pkl", "rb") 
+# weights_file = open(f"{BASE_DIR}/weights.h5", "rb") 
 
 tokenizer = SinhalaTokenizer()
-tokenizer.create_data_using_pickle_file('app\\internal\\model\\tokenizer.pkl')
+tokenizer.create_data_using_pickle_file(tokenizer_file)
 VOCAB_SIZE = tokenizer.vocab_size + 2
 
 
@@ -34,7 +41,7 @@ model = transformer(
       dropout=DROPOUT)  
 
 model.compile(optimizer=optimizer, loss=loss_function, metrics=[accuracy])
-model.load_weights('app\\internal\\model\\weights.h5')
+model.load_weights(f"{BASE_DIR}/weights.h5")
 
 predictor = Predictor(model, tokenizer)
 
