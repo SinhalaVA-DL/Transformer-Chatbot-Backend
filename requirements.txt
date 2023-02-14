@@ -1,0 +1,9 @@
+numpy
+pydantic
+pandas
+fastapi
+uvicorn
+gunicorn==19.9.0
+tensorflow-cpu == 2.10.0
+joblib
+pathlib
