@@ -4,9 +4,6 @@ from pydantic import BaseModel
 
 router = APIRouter()
 
-
-
-
 class TextIn(BaseModel):
     text: str
 
@@ -14,14 +11,10 @@ class TextIn(BaseModel):
 class PredictionOut(BaseModel):
     response: str
 
-@router.get("/chat/", tags=["chat"])
-async def answer_chat():
-    return [{"username": "Rick"}, {"username": "Morty"}]
-
 
 
 @router.get("/chat/health", tags=["chat"])
-async def home():
+async def health():
     return {"health_check": "OK"}
 
 
