@@ -1,19 +1,12 @@
 from fastapi import  FastAPI
 from pydantic import BaseModel
 from .routers import chat
-
+from .routers import feedback
 
 app = FastAPI()
 
 app.include_router(chat.router)
-
-
-class TextIn(BaseModel):
-    text: str
-
-
-class PredictionOut(BaseModel):
-    response: str
+app.include_router(feedback.router)
 
 
 
