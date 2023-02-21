@@ -30,7 +30,7 @@ To run the Docker image, you will need to have Docker installed on your machine.
 Once you have Docker installed, you can run the Docker image using the following command:
 
 ```
-docker run -p 8080:80 <image-name>
+docker run -p 8000:8000 <image-name>
 
 ```
 If you want to customize the container configuration, you can pass additional options to the docker run command. Here are some common options:
