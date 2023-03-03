@@ -1,25 +1,53 @@
-from fastapi import APIRouter
+from fastapi import APIRouter,status,HTTPException
 from pydantic import BaseModel
+from ..schemas import schemas
+from ..services.repository import retrieve_document , create_document, getAll_documents
+from ..services.exceptions import NotFoundHTTPException
+from fastapi.encoders import jsonable_encoder
+from app import config
+
+
+global_settings = config.get_settings()
+collection = global_settings.collection
+collection2 = global_settings.collection2
 
 router = APIRouter()
 
-class RateIn(BaseModel):
-    rate: int
+@router.post("/feedback/create-rate", tags=["feedback"])
+async def rate_response(payload:schemas.ReactionBaseSchema):
 
-class UserAnswer(BaseModel):
-    answer: str
-
-
-
-@router.post("/feedback/rate", tags=["feedback"])
-async def rate_response(payload: RateIn):
-
-    response = 'You have Rated ' + payload.rate
-    return {"resonse": response}
+    try:
+        payload = jsonable_encoder(payload)
+        return await create_document(payload, collection2)
+    except ValueError as exception:
+        raise NotFoundHTTPException(msg=str(exception))
 
 
-@router.post("/feedback/user-answer", tags=["feedback"])
-async def user_answer(payload: UserAnswer):
+@router.post("/feedback/create-response", tags=["feedback"])
+async def create_response(payload: schemas.ResponseBaseSchema):
 
-    response = 'Thank you for your Response'
-    return {"resonse": response}
+    try:
+        payload = jsonable_encoder(payload)
+        return await create_document(payload, collection)
+    except ValueError as exception:
+        raise NotFoundHTTPException(msg=str(exception))
+    
+
+
+@router.get("/feedback/get-all-responses", tags=["feedback"])
+async def get_responses():
+
+   try:
+        response = await getAll_documents(collection)
+        return response
+   except ValueError as exception:
+        raise NotFoundHTTPException(msg=str(exception))
+    
+@router.get("/feedback/get-all-reactions", tags=["feedback"])
+async def get_requests():
+
+   try:
+        response = await getAll_documents(collection2)
+        return response
+   except ValueError as exception:
+        raise NotFoundHTTPException(msg=str(exception))

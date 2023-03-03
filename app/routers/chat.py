@@ -22,4 +22,4 @@ async def health():
 async def predict(payload: TextIn):
 
     response = predictor.predict(payload.text)
-    return {"resonse": response}
+    return {"response": response}
