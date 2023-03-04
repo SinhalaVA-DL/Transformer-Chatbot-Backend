@@ -52,6 +52,12 @@ class SinhalaTokenizer:
                     ints.append(self.sentence2int[word])
             sentences_into_int.append(ints)
         # print(self.int2word)
+    
+    def check_availability(self, sentence):
+        for word in sentence.split():
+            if word not in self.sentence2int:
+                return False
+        return True
 
     def encode(self, sentence):
         # return tokenized sentences
