@@ -1,4 +1,3 @@
-
 ATTEMPT = 1
 # Maximum sentence length
 MAX_LENGTH = 20
@@ -10,15 +9,15 @@ MAX_SAMPLES = 70000 # 0 = for All of data otherwise mention the size
 TRESHOLD_VALUE = 1
 
 # For tf.data.Dataset
-BATCH_SIZE = 8 
+BATCH_SIZE = 64 * 8
 BUFFER_SIZE = 20000 #Shuffle data in the dataset
 
 # For Transformer
 NUM_LAYERS = 2
-D_MODEL = 512
+D_MODEL = 1024
 NUM_HEADS = 16
 UNITS = 512
 DROPOUT = 0.3
 
-EPOCHS = 2
+EPOCHS = 40
 TRAINING_RATIO = 0.9

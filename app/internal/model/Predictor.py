@@ -10,9 +10,8 @@ class Predictor:
         self.tokenizer = tokenizer
 
     def evaluate(self,sentence):
-        sinhala_pre = SinhalaPreprocessor()
+
         START_TOKEN, END_TOKEN = [self.tokenizer.vocab_size], [self.tokenizer.vocab_size + 1]
-        sentence = sinhala_pre.preprocess_sentence(sentence)
 
         sentence = tf.expand_dims(
             START_TOKEN + self.tokenizer.encode(sentence) + END_TOKEN, axis=0)
@@ -41,6 +40,11 @@ class Predictor:
 
     def predict(self,sentence):
     # word_index = []
+        sinhala_pre = SinhalaPreprocessor()
+        sentence = sinhala_pre.preprocess_sentence(sentence)
+        availble = self.tokenizer.check_availability(sentence)
+        if not availble:
+            return "සමාවෙන්න ඔබගේ ප්‍රශ්නයට පිළිතුරු ලබා දීමට තරම් ප්‍රමාණවත් දත්ත මා ලග නොමැත."
         prediction = self.evaluate(sentence).numpy()
         print(prediction)
         print(type(prediction))
