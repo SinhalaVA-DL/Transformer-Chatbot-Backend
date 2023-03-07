@@ -21,7 +21,7 @@ origins = [
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"], # set to "*" to allow all origins or replace with a list of allowed origins
+    allow_origins=origins, # set to "*" to allow all origins or replace with a list of allowed origins
     allow_credentials=True,
     allow_methods=["*"], # set to "*" to allow all methods or replace with a list of allowed methods
     allow_headers=["*"], # set to "*" to allow all headers or replace with a list of allowed headers
