@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from ..internal.model.chatbot import predictor
+from ..internal.result import get_result
 from pydantic import BaseModel
 
 router = APIRouter()
@@ -21,5 +22,6 @@ async def health():
 @router.post("/chat/ask", tags=["chat"])
 async def predict(payload: TextIn):
 
-    response = predictor.predict(payload.text)
+    # response = predictor.predict(payload.text)
+    response = get_result(payload.text)
     return {"response": response}
