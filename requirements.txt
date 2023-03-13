@@ -9,3 +9,4 @@ joblib
 pathlib
 pymongo
 motor
+deep_translator
