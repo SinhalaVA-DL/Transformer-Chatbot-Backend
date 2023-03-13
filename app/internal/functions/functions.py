@@ -1,12 +1,13 @@
-import datetime
-
+from pytz import timezone 
+from datetime import datetime
+from .weather import getWeather
 
 def getTime():
-    return datetime.datetime.now().strftime("%H:%M:%S")
+    ind_time = datetime.now(timezone("Asia/Kolkata")).strftime('දැන් වෙලාව %H:%M')
+    print(ind_time)
+    return ind_time
 
 
-def getWeather():
-    return "sunny"
 
 
 get_func = {
