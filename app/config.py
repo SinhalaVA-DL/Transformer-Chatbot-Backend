@@ -8,12 +8,10 @@ class Settings(BaseSettings):
     collection: str = os.getenv("MONGO_COLLECTION", "")
     collection2: str = os.getenv("MONGO_COLLECTION2", "")
     client_origin: str = os.getenv("CLIENT_ORIGIN", "")
+    weather_apiKey: str = os.getenv("OPEN_WEATHER_API_KEY", "")
 
-
-
-
-
-
+    class Config:
+        env_file = ".env"
 
 @lru_cache
 def get_settings():
