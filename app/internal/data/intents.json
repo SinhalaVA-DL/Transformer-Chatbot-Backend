@@ -45,8 +45,8 @@
 				"ඔයාගේ නම මට කියන්න",
 				"නම මොකක්ද "
 			],
-			"responses": ["මගේ නම මදුෂාන් "],
-			"has_function": true
+			"responses": ["මගේ නම  "],
+			"has_function": false
 		}
 	]
 }
