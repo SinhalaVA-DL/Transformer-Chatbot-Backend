@@ -4,14 +4,16 @@ import pickle
 import numpy as np
 from tensorflow import keras
 import sinhala_preprocessor as preprocesser
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve(strict=True).parent
 
 
 def sinhala_splitter(words):
     return words.split(" ")
 
 
-
-intents = json.loads(open('rule_based_inteligent_system\data\intents.json', encoding="utf8").read())
+intents = json.loads(open(f'{BASE_DIR}/intents.json', encoding="utf8").read())
 
 words = []
 classes = []
@@ -58,23 +60,18 @@ train_x = list(training[:, 0])
 train_y = list(training[:, 1])
 
 model = keras.Sequential()
-model.add(keras.layers.Dense(128, input_shape=(len(train_x[0]),), activation='relu'))
+model.add(keras.layers.Dense(128, input_shape=(
+    len(train_x[0]),), activation='relu'))
 model.add(keras.layers.Dropout(0.5))
 model.add(keras.layers.Dense(64, activation='relu'))
 model.add(keras.layers.Dropout(0.5))
 model.add(keras.layers.Dense(len(train_y[0]), activation='softmax'))
 
 sgd = keras.optimizers.SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
-model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
+model.compile(loss='categorical_crossentropy',
+              optimizer=sgd, metrics=['accuracy'])
 
-hist = model.fit(np.array(train_x), np.array(train_y), epochs=200, batch_size=5, verbose=1)
+hist = model.fit(np.array(train_x), np.array(train_y),
+                 epochs=200, batch_size=5, verbose=1)
 model.save('chatbot_model.h5', hist)
 print("done")
-
-
-
-
-
-
-
-
