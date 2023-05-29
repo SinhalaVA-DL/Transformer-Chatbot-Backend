@@ -10,3 +10,6 @@ pathlib
 pymongo
 motor
 deep_translator
+scikit-learn
+
+
