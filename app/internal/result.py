@@ -6,15 +6,20 @@ from .model.chatbot import predictor
 from .functions.functions import *
 from pathlib import Path
 from tensorflow import keras
+from .health_bot.health_bot import Health_Data, Health_Bot
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent
 
 
-intents = json.loads(open(f"{BASE_DIR}/data/intents.json", encoding="utf8").read())
+intents = json.loads(
+    open(f"{BASE_DIR}/data/intents.json", encoding="utf8").read())
 
 words = pickle.load(open(f"{BASE_DIR}/data/words.pkl", 'rb'))
 classes = pickle.load(open(f"{BASE_DIR}/data/classes.pkl", 'rb'))
 model = keras.models.load_model(f"{BASE_DIR}/data/chatbot_model.h5")
+healthData = Health_Data()
+health_bot = Health_Bot(healthData)
+
 
 def clean_up_sentence(sentence):
     sentence_words = sentence.split()
@@ -29,7 +34,8 @@ def bow(sentence, words, show_details=True):
         for i, word in enumerate(words):
             if word == s:
                 bag[i] = 1
-    return(np.array(bag))
+    return (np.array(bag))
+
 
 def predict_class(sentence):
     p = bow(sentence, words, show_details=False)
@@ -43,16 +49,18 @@ def predict_class(sentence):
     return return_list
 
 
-
-
-def get_result(question:str):
+def get_result(question: str):
     results = predict_class(question)
+    print(results)
     tag = results[0]['intent']
     proberbility = results[0]['probability']
-    if float(proberbility) == 1:
+    if float(proberbility) >= 0.9486:
         list_of_intents = intents['intents']
+        if tag == 'health_bot':
+            result = health_bot.getDiagnoses(question)
+            return result
         for i in list_of_intents:
-            if(i['tag'] == tag):
+            if (i['tag'] == tag):
                 if i['has_function']:
                     result = get_func[tag]()
                 else:
@@ -62,4 +70,3 @@ def get_result(question:str):
     else:
         result = predictor.predict(question)
         return result
-
