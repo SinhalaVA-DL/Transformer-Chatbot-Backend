@@ -76,15 +76,6 @@ class Health_Data():
                 description_list.update(_dis)
         return description_list
 
-    def calc_condition(self, exp, days):
-        sum = 0
-        for item in exp:
-            sum = sum + self.serverity_dict[item]
-        if((sum*days)/(len(exp)+1) > 13):
-            print("ඔබ වෛද්යවරයෙකුගෙන් උපදෙස් ලබා ගත යුතුය. ")
-        else:
-            print("එය එතරම් නරක නොවිය හැකි නමුත් ඔබ පූර්වාරක්ෂාව ගත යුතුය.")
-
     def initModel(self):
         with open(f'{BASE_DIR}/decision_tree_model.pkl', 'rb') as f:
             clf = pickle.load(f)
@@ -307,15 +298,15 @@ class Health_Bot():
                 # check if symptoms_given and diseases are same and add to symptoms_exp
                 symptoms_exp = [element for element in list(symptoms_given) if element in diseases]
                 if len(symptoms_exp) == 0:
-                    return_sentence = "ඔබට" + present_disease[0] + "තියෙන්න පුළුවන් "
+                    return_sentence = "ඔබට " + present_disease[0] + "තියෙන්න පුළුවන් "
                 
                 second_prediction = self.sec_predict(symptoms_exp)
                 return_sentence = ""
                 if(present_disease[0] == second_prediction[0]):
                     
-                    return_sentence += "ඔබට" + present_disease[0] + "තියෙන්න පුළුවන් "
+                    return_sentence += "ඔබට " + present_disease[0] + "තියෙන්න පුළුවන් "
                 else:
-                    return_sentence += "ඔබට" + present_disease[0] + " හෝ " + second_prediction[0] + " තියෙන්න පුළුවන් "
+                    return_sentence += "ඔබට " + present_disease[0] + " හෝ " + second_prediction[0] + " තියෙන්න පුළුවන් "
                 try:
                     precution_list = self.health_data.precautionDictionary[present_disease[0]]
                 except Exception:
