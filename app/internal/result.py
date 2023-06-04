@@ -59,6 +59,9 @@ def get_result(question: str):
         if tag == 'health_bot':
             result = health_bot.getDiagnoses(question)
             return result
+        if tag == 'other':
+            result = predictor.predict(question)
+            return result
         for i in list_of_intents:
             if (i['tag'] == tag):
                 if i['has_function']:
