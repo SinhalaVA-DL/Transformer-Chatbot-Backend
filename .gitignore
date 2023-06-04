@@ -1,5 +1,5 @@
 /app/internal/model/weights.h5
-/app/internal/model/tokenizer.pkl
+#/app/internal/model/tokenizer.pkl
 idea
 .ipynb_checkpoints
 .mypy_cache
@@ -26,8 +26,8 @@ archive.zip
 *~
 .*.sw?
 .env
-*.pkl
-**/*.pkl
+#*.pkl
+#**/*.pkl
 *.h5
 *.pyc
 app/__pycache__/
