@@ -6,7 +6,7 @@ from .model.chatbot import predictor
 from .functions.functions import *
 from pathlib import Path
 from tensorflow import keras
-from .health_bot.health_bot import Health_Data, Health_Bot
+# from .health_bot.health_bot import Health_Data, Health_Bot
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent
 
@@ -17,8 +17,8 @@ intents = json.loads(
 words = pickle.load(open(f"{BASE_DIR}/data/words.pkl", 'rb'))
 classes = pickle.load(open(f"{BASE_DIR}/data/classes.pkl", 'rb'))
 model = keras.models.load_model(f"{BASE_DIR}/data/chatbot_model.h5")
-healthData = Health_Data()
-health_bot = Health_Bot(healthData)
+# healthData = Health_Data()
+# health_bot = Health_Bot(healthData)
 
 
 def clean_up_sentence(sentence):
@@ -57,7 +57,8 @@ def get_result(question: str):
     if float(proberbility) >= 0.9486:
         list_of_intents = intents['intents']
         if tag == 'health_bot':
-            result = health_bot.getDiagnoses(question)
+            # result = health_bot.getDiagnoses(question)
+            result = "health issue"
             return result
         for i in list_of_intents:
             if (i['tag'] == tag):

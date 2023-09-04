@@ -54,10 +54,13 @@ for doc in documents:
         training.append([bag, output_row])
 
 random.shuffle(training)
-training = np.array(training)
+# training = np.array(training)
 
-train_x = list(training[:, 0])
-train_y = list(training[:, 1])
+train_x = [row[0] for row in training]
+train_y = [row[1] for row in training]
+
+# train_x = list(training[:, 0])
+# train_y = list(training[:, 1])
 
 model = keras.Sequential()
 model.add(keras.layers.Dense(128, input_shape=(

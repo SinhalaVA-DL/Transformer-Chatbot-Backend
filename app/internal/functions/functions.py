@@ -4,7 +4,7 @@ from .weather import getWeather
 
 
 def getTime():
-    ind_time = datetime.now(timezone("Asia/Kolkata"))
+    ind_time = datetime.now(timezone("Asia/Colombo"))
     datetime_object = datetime.fromisoformat(str(ind_time))
     date = datetime_object.date()
     time = datetime_object.time().strftime("%H:%M:%S")

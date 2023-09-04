@@ -1,15 +1,13 @@
+import csv
+import pickle
 import re
+from pathlib import Path
+
+import numpy as np
 import pandas as pd
 from sklearn import preprocessing
-from sklearn.tree import DecisionTreeClassifier, _tree
-import numpy as np
 from sklearn.model_selection import train_test_split
-from sklearn.model_selection import cross_val_score
-from sklearn.svm import SVC
-import csv
-import warnings
-import pickle
-from pathlib import Path
+from sklearn.tree import DecisionTreeClassifier, _tree
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent
 
