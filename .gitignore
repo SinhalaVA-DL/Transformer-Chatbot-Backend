@@ -28,7 +28,6 @@ archive.zip
 .env
 #*.pkl
 #**/*.pkl
-*.h5
 *.pyc
 app/__pycache__/
 app/internal/model/__pycache__/
